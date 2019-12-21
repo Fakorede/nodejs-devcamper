@@ -1,7 +1,6 @@
 const fs = require("fs");
 const mongoose = require("mongoose");
 const colors = require("colors");
-const colors = require("colors");
 const dotenv = require("dotenv");
 
 // load env variables
@@ -50,6 +49,6 @@ const deleteData = async () => {
 // execute command
 if (process.argv[2] === "-i") {
   importData();
-} else if (process.argv[2] === "-i") {
+} else if (process.argv[2] === "-d") {
   deleteData();
 }
