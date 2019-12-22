@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const colors = require("colors");
 
 const CourseSchema = new mongoose.Schema({
   title: {
@@ -36,6 +37,42 @@ const CourseSchema = new mongoose.Schema({
     ref: "Bootcamp",
     required: true
   }
+});
+
+// static method to get av. cost of course
+CourseSchema.statics.getAverageCost = async function(bootcampId) {
+  console.log("calculating av cost".blue);
+
+  const obj = await this.aggregate([
+    {
+      $match: { bootcamp: bootcampId }
+    },
+    {
+      $group: {
+        _id: "$bootcamp",
+        averageCost: { $avg: "$tuition" }
+      }
+    }
+  ]);
+
+  // insert av.cost into db
+  try {
+    await this.model("Bootcamp").findByIdAndUpdate(bootcampId, {
+      averageCost: Math.ceil(obj[0].averageCost / 10) * 10
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// call getAverageCost after save
+CourseSchema.post("save", function() {
+  this.constructor.getAverageCost(this.bootcamp);
+});
+
+// call getAverageCost before remove
+CourseSchema.pre("remove", function() {
+  this.constructor.getAverageCost(this.bootcamp);
 });
 
 module.exports = mongoose.model("Course", CourseSchema);
