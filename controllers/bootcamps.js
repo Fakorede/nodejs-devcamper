@@ -19,7 +19,7 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
 
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
-  query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
+  query = Bootcamp.find(JSON.parse(queryStr)).populate("courses");
 
   // select fields
   if (req.query.select) {
@@ -86,8 +86,8 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: bootcamp,
-    message: "Show single bootcamp"
+    message: "Show single bootcamp",
+    data: bootcamp
   });
 });
 
@@ -136,7 +136,7 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Bootcamp with id of ${req.params.id} not found`, 404)
     );
 
-  bootcamp.remove()
+  bootcamp.remove();
 
   res.status(200).json({
     success: true,
