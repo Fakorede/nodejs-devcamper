@@ -1,0 +1,694 @@
+{
+	"variables": [],
+	"info": {
+		"name": "DevCamper API",
+		"_postman_id": "4a0b17d7-8945-c1eb-27df-acb97b0db138",
+		"description": "Backend API for the DevCamper application to manage bootcamps, courses, reviews, users and authentication.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bootcamps",
+			"description": "Bootcamps CRUD functionality",
+			"item": [
+				{
+					"name": "Get All Bootcamps",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Fetch all bootcamps from database. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Bootcamp",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5dfcdd57230d323578d88105",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Fetch single bootcamp by ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Bootcamp",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Devworks Bootcamp - admin\",\n\t\"description\": \"Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer\",\n\t\"website\": \"https://devworks.com\",\n\t\"phone\": \"(111) 111-1111\",\n\t\"email\": \"enroll@devworks.com\",\n\t\"address\": \"233 Bay State Rd Boston MA 02215\",\n\t\"careers\": [\"Web Development\", \"UI/UX\", \"Business\"],\n\t\"housing\": true,\n\t\"jobAssistance\": true,\n\t\"jobGuarantee\": false,\n\t\"acceptGi\": true\n}"
+						},
+						"description": "Add new bootcamp to database. Must be authenticated and must be a publisher or admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bootcamp",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5e03c6581666963db8702059",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"housing\": true\n}"
+						},
+						"description": "Update single bootcamp in database. Must be authenticated."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bootcamp",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5e03c6581666963db8702059",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Delete bootcamp from database. Must be authenticated."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bootcamps By Distance",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/radius/02118/10",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get bootcamps within radius of a specified zipcode."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photo",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5d713995b721c3bb38c1f5d0/photo",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"description": "Upload photo for bootcamp"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"description": "Courses CRUD functionality",
+			"item": [
+				{
+					"name": "Get All Courses",
+					"request": {
+						"url": "http://localhost:5000/api/v1/courses",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get all courses in database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Courses For Bootcamp",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5d713995b721c3bb38c1f5d0/courses",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get the courses belonging to a bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Course",
+					"request": {
+						"url": "http://localhost:5000/api/v1/courses/5d725c84c4ded7bcb480eaa0",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get a single course by its ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bootcamp Course",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5d713995b721c3bb38c1f5d0/courses",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Mobile Development\",\n\t\"description\": \"This course will provide you with all of the essentials to become a successful frontend web developer. You will learn to master HTML, CSS and front end JavaScript, along with tools like Git, VSCode and front end frameworks like Vue\",\n\t\"weeks\": 8,\n\t\"tuition\": 8000,\n\t\"minimumSkill\": \"beginner\",\n\t\"scholarhipsAvailable\": true\n}"
+						},
+						"description": "Create course for a spcific bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"url": "http://localhost:5000/api/v1/courses/5dffbe34d4b6564f084eaa60",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Mobile Development with Flutter\",\n\t\"minimumSkill\": \"intermediate\",\n\t\"tuition\": 10000,\n\t\"scholarshipAvailable\": true\n}"
+						},
+						"description": "Update course in database"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"url": "http://localhost:5000/api/v1/courses/5dffbe34d4b6564f084eaa60",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove course from database"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"description": "Routes for user authentication including register, login, reset password, etc.",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"//pm.environment.set(\"TOKEN\", pm.response.json().token)",
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", data.token)"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:5000/api/v1/auth/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"test user\",\n\t\"email\": \"test@gmail.com\",\n\t\"password\": \"password\",\n\t\"role\": \"publisher\"\n}"
+						},
+						"description": "Add user to database with encrypted password"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"//pm.environment.set(\"TOKEN\", pm.response.json().token)",
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", data.token)"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:5000/api/v1/auth/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"user@gmail.com\",\n\t\"password\": \"123456\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logged In User via Token",
+					"request": {
+						"url": "http://localhost:5000/api/v1/auth/me",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"jdoe@gmail.com\",\n\t\"password\": \"password\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"url": "http://localhost:5000/api/v1/auth/forgotpassword",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"kevin@gmail.com\"\n}"
+						},
+						"description": "Generate password token and send as email"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"url": "http://localhost:5000/api/v1/auth/resetpassword/6c63e5ee863d79358c657af0b027567a67703372",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"1234567\"\n}"
+						},
+						"description": "Reset user password using token"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"request": {
+						"url": "http://localhost:5000/api/v1/auth/logout",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Clear token cookie"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": "Routes for updating user details and password",
+			"item": [
+				{
+					"name": "Update User Details",
+					"request": {
+						"url": "http://localhost:5000/api/v1/user/updatedetails",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"kevin@gmail.com\",\n\t\"name\": \"Kevin Smith Jr.\"\n}"
+						},
+						"description": "Update logged in user name and email"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"url": "http://localhost:5000/api/v1/user/updatepassword",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"currentPassword\": \"1234567\",\n\t\"newPassword\": \"123456\"\n}"
+						},
+						"description": "Update logged in user password, send in the body currentPassword and newPassword"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "CRUD functionality for users only available to admins",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"url": "http://localhost:5000/api/v1/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get all users (admins only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"url": "http://localhost:5000/api/v1/users/5c8a1d5b0190b214360dc040",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get single user by ID (admins only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"url": "http://localhost:5000/api/v1/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"user\",\n\t\"email\": \"tuser@gmail.com\",\n\t\"password\": \"123456\",\n\t\"role\": \"user\"\n}"
+						},
+						"description": "Add user to database (admins only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"url": "http://localhost:5000/api/v1/users/5e051b6b2f412d2f944b8919",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"test user\"\n}"
+						},
+						"description": "Update user in database (admins only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"url": "http://localhost:5000/api/v1/users/5e051b6b2f412d2f944b8919",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove user from database (admins only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"description": "Manage course reviews",
+			"item": [
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"url": "http://localhost:5000/api/v1/reviews",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get all reviews from database and bootcamp name and description"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews for Bootcamp",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Fetch the reviews for a specific bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Review",
+					"request": {
+						"url": "http://localhost:5000/api/v1/reviews/5d7a514b5d2c12c7449be027",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Fetch a review from database by ID and populate Bootcamp name and description"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Review for Bootcamp",
+					"request": {
+						"url": "http://localhost:5000/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Nice bootcamp\",\n\t\"text\": \"learnt some stuff\",\n\t\"rating\": 7\n}"
+						},
+						"description": "Add review for a specific bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"url": "http://localhost:5000/api/v1/reviews/5e052d9dffe4002fc80779c3",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"rating\": 8\n}"
+						},
+						"description": "Update review in database"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"url": "http://localhost:5000/api/v1/reviews/5e052d9dffe4002fc80779c3",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove review from database"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
